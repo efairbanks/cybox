@@ -1,0 +1,43 @@
+(require 'package)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+("melpa-stable" . "http://stable.melpa.org/packages/")))))
+
+;; Hide splash-screen and startup-message
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+
+;;(add-hook 'isearch-update-post-hook 'redraw-display)
+
+(add-to-list 'load-path "/repos/cybin")
+(autoload 'cybin-mode "cybin-mode" "Cybin editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.cybin$" . cybin-mode))
+(add-to-list 'interpreter-mode-alist '("cybin" . cybin-mode))
+
+(fset 'scybin
+"\C-c\C-e")
+(find-file "~/hello.cybin")
+(execute-kbd-macro (symbol-function 'scybin))
+
+(delete-other-windows)
+(split-window-below)
+(other-window 1)
+(switch-to-buffer "*cybin*")
+(other-window 1)
+(maximize-window)
+(shrink-window 10)
+
+(defun sseek ()
+  (interactive)
+  (with-no-warnings
+    (goto-line 2)))
+
+(sseek)
+
+;;(sleep-for 5)
